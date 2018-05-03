@@ -1,0 +1,5 @@
+.DS_Ignore
+.idea/workspace.xml
+.idea/tasks.xml
+/target
+/out
