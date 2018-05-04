@@ -1,5 +1,5 @@
 
-package io.kubernetes.client.examples;
+package com.company.examples;
 
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;

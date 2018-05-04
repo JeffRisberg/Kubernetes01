@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Ex1" />
+        <module name="Kubernetes01" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Ex1" target="1.5" />
+      <module name="Kubernetes01" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

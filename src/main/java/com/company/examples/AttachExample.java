@@ -1,4 +1,4 @@
-package io.kubernetes.client.examples;
+package com.company.examples;
 
 import com.google.common.io.ByteStreams;
 import io.kubernetes.client.ApiClient;
@@ -16,7 +16,7 @@ import java.io.OutputStream;
  * A simple example of how to use the Java API
  * <p>
  * <p>Easiest way to run this: mvn exec:java
- * -Dexec.mainClass="io.kubernetes.client.examples.AttachExample"
+ * -Dexec.mainClass="AttachExample"
  * <p>
  * <p>From inside $REPO_DIR/examples
  */

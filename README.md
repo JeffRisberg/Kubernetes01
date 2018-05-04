@@ -8,6 +8,6 @@ mvn install
 
 cd ${REPO_ROOT}/examples
 mvn package
-mvn exec:java -Dexec.mainClass="io.kubernetes.client.examples.ListPods"
+mvn exec:java -Dexec.mainClass="ListPods"
 ```
 
