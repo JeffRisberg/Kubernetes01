@@ -23,13 +23,11 @@ public class ListNodes {
         ApiClient client = Config.defaultClient();
         Configuration.setDefaultApiClient(client);
 
-        List<String> nodeIPs;
-
-        Configuration.setDefaultApiClient(client);
         CoreV1Api v1Api = new CoreV1Api();
 
         try {
-            nodeIPs = new ArrayList<String>();
+            List<String> nodeIPs = new ArrayList<String>();
+
             V1NodeList list = v1Api.listNode(PRETTY, "", "", "", 30, false);
             for (V1Node node : list.getItems()) {
                 List<V1NodeAddress> addresses = node.getStatus().getAddresses();
@@ -41,7 +39,7 @@ public class ListNodes {
             }
             System.out.println("Cluster node IPs: " + nodeIPs);
         } catch (Exception e) {
-            System.out.println("Could not retrieve cluster IPs: ");
+            System.out.println("Could not retrieve cluster IPs:");
             e.printStackTrace();
         }
     }
