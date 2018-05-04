@@ -20,7 +20,7 @@ public class ListNodesFromConfig {
     private static final String PRETTY = "true";
 
     public static void main(String[] args) throws IOException {
-        String configFile = "resources/conf/kube-config";
+        String configFile = "resources/conf/config";
 
         ApiClient client = Config.fromConfig(configFile);
         Configuration.setDefaultApiClient(client);
