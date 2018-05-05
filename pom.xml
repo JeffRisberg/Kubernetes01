@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.company</groupId>
     <artifactId>Kubernetes01</artifactId>
-    <version>1.0.0-</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Kubernetes01</name>
 
