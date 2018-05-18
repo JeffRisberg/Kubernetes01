@@ -56,6 +56,27 @@ public class ConfigMapExample {
         e.printStackTrace();
       }
 
+      name = "configmap2";
+      try {
+        Resource<ConfigMap, DoneableConfigMap> configMapResource = client.configMaps().inNamespace(namespace).withName(name);
+
+        // This example from https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap
+        ConfigMap configMap = configMapResource.createOrReplace(new ConfigMapBuilder().
+          withNewMetadata().withName(name).endMetadata().
+          addToData("enimies", "aliens").
+          addToData("lives", "3").
+          addToData("enemies.cheat", "true").
+          addToData("enemies.cheat.level", "noGoodRotten").
+          addToData("secret.code.passphrase", "UUDDLRLRBABAS").
+          addToData("secret.code.allowed", "true").
+          addToData("secret.code.lives", "30").
+          build());
+
+        System.out.println("Upserted ConfigMap at " + configMap.getMetadata().getSelfLink() + " with data " + configMap.getData());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
       System.out.println("done");
     } finally {
       client.close();
