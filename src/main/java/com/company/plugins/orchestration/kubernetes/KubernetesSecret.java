@@ -1,4 +1,4 @@
-package com.company.plugins;
+package com.company.plugins.orchestration.kubernetes;
 
 import com.company.orchestration.SecretStoreFactory;
 import io.fabric8.kubernetes.api.model.Secret;
