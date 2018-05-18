@@ -1,6 +1,6 @@
 package com.company.plugins;
 
-import com.aisera.common.orchestration.SecretStoreFactory;
+import com.company.orchestration.SecretStoreFactory;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.client.*;
 import lombok.extern.slf4j.Slf4j;
