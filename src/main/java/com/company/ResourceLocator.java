@@ -22,7 +22,7 @@ import java.util.Properties;
  * properties - where do these come from?  It appears that you call registerProperties.
  * Can you call that multiple times?
  *
- * Isi there a hierarchy of properties?  Not really, except when you define the names with a hierarchy.
+ * Is there a hierarchy of properties?  Not really, except when you define the names with a hierarchy.
  *
  * I have commented out those which are specific to Aisera configuration.
  */
