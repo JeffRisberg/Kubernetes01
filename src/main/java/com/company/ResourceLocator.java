@@ -1,6 +1,5 @@
 package com.company;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,13 +8,30 @@ import java.util.Optional;
 import java.util.Properties;
 
 /**
+ * It is just getting a String (or bool, or int) as a utility function.  There
+ * is no concept of a Resource.
+ *
+ * Somewhat like the Archaius locator, this searches in several locations.
+ * <p>
+ * Order of resolution:
+ * - get env value with modified key
+ * - get env value with original key
+ * - get properties value with original key
+ *
+ * Env means System.env
+ * properties - where do these come from?  It appears that you call registerProperties.
+ * Can you call that multiple times?
+ *
+ * Isi there a hierarchy of properties?  Not really, except when you define the names with a hierarchy.
+ *
+ * I have commented out those which are specific to Aisera configuration.
  */
 @Slf4j
 public class ResourceLocator {
-  private static final String SEARCH_DNS_HOST_KEY = "aisera.search.host";
+  //private static final String SEARCH_DNS_HOST_KEY = "aisera.search.host";
   private static final String SEARCH_DNS_PORT_KEY = "aisera.search.port";
-  private static final String AS_LINKED_DOCUMENT = "aisera.data.document.asLinkedDocument";
-  private static final String NLP_SVC_TYPE_KEY = "aisera.nlp.useSvc";
+  //private static final String AS_LINKED_DOCUMENT = "aisera.data.document.asLinkedDocument";
+  //private static final String NLP_SVC_TYPE_KEY = "aisera.nlp.useSvc";
 
   private static final String SEARCH_DEFAULT_HOST = "localhost";
   private static final int SEARCH_DEFAULT_PORT = 9300;
@@ -34,31 +50,31 @@ public class ResourceLocator {
   }
 
   /**
-   * Depending on the orchestration, search cluster can be located as a different service
-   * or in the same node as a separate micro service.
+   * Depending on the orchestration configuration, search cluster can be located as a different
+   * service or in the same node as a separate microservice.
    *
    * @return
    */
-  public static String getSearchHost() {
-    return getResource(SEARCH_DNS_HOST_KEY).orElse(SEARCH_DEFAULT_HOST);
-  }
+  //public static String getSearchHost() {
+  //  return getResource(SEARCH_DNS_HOST_KEY).orElse(SEARCH_DEFAULT_HOST);
+  //}
 
-  public static boolean doUseNLPSvc() {
-    return ResourceLocator.getResourceAsBoolean(NLP_SVC_TYPE_KEY).orElse(false);
-  }
-
+  //public static boolean doUseNLPSvc() {
+  //  return ResourceLocator.getResourceAsBoolean(NLP_SVC_TYPE_KEY).orElse(false);
+  //}
   public static int getSearchPort() {
     return getResource(SEARCH_DNS_PORT_KEY).map((x) ->
-        Integer.parseInt(x)).orElse(SEARCH_DEFAULT_PORT);
+      Integer.parseInt(x)).orElse(SEARCH_DEFAULT_PORT);
   }
 
   /**
    * Determines if the basic element of the graph/index is a linkedContent or Content
+   *
    * @return
    */
-  public static final boolean useLinkedContentAsBasicElement() {
-    return getResourceAsBoolean(AS_LINKED_DOCUMENT).orElse(true);
-  }
+  //public static final boolean useLinkedContentAsBasicElement() {
+  //  return getResourceAsBoolean(AS_LINKED_DOCUMENT).orElse(true);
+  //}
 
   /**
    * Env takes precedence over properties
@@ -69,6 +85,7 @@ public class ResourceLocator {
   public static Optional<String> getResource(String key) {
     // Change all the key structure in Milestone_6 to use '_' instead of dots
     // This is a performance overhead, but making sticking to it for M5.
+    //
     // Order of resolution:
     //  get env value with modified key
     //  get env value with original key
@@ -76,7 +93,7 @@ public class ResourceLocator {
 
     String newKey = key.replaceAll("\\.", "_");
     String value = getEnvValue(newKey).orElseGet(() ->
-            getEnvValue(key).orElseGet(() -> props.getProperty(key)));
+      getEnvValue(key).orElseGet(() -> props.getProperty(key)));
 
     return (StringUtils.isEmpty(value)) ? Optional.empty() : Optional.of(value);
   }
@@ -93,5 +110,4 @@ public class ResourceLocator {
   public static Optional<Integer> getResourceAsInt(String key) {
     return getResource(key).map(x -> new Integer(Integer.parseInt(x)));
   }
-
 }
