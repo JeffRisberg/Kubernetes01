@@ -17,30 +17,30 @@ import java.util.List;
  * A simple example of how to use the Java API
  */
 public class ListNodes {
-    private static final String PRETTY = "true";
+  private static final String PRETTY = "true";
 
-    public static void main(String[] args) throws IOException, ApiException {
-        ApiClient client = Config.defaultClient();
-        Configuration.setDefaultApiClient(client);
+  public static void main(String[] args) throws IOException, ApiException {
+    ApiClient client = Config.defaultClient();
+    Configuration.setDefaultApiClient(client);
 
-        CoreV1Api v1Api = new CoreV1Api();
+    CoreV1Api v1Api = new CoreV1Api();
 
-        try {
-            List<String> nodeIPs = new ArrayList<String>();
+    try {
+      List<String> nodeIPs = new ArrayList<String>();
 
-            V1NodeList list = v1Api.listNode(PRETTY, "", "", "", 30, false);
-            for (V1Node node : list.getItems()) {
-                List<V1NodeAddress> addresses = node.getStatus().getAddresses();
-                for (V1NodeAddress address : addresses) {
-                    if (address.getType().equals("InternalIP")) {
-                        nodeIPs.add(address.getAddress());
-                    }
-                }
-            }
-            System.out.println("Cluster node IPs: " + nodeIPs);
-        } catch (Exception e) {
-            System.out.println("Could not retrieve cluster IPs:");
-            e.printStackTrace();
+      V1NodeList list = v1Api.listNode("", "", "", false, "", 30, "", 30, false);
+      for (V1Node node : list.getItems()) {
+        List<V1NodeAddress> addresses = node.getStatus().getAddresses();
+        for (V1NodeAddress address : addresses) {
+          if (address.getType().equals("InternalIP")) {
+            nodeIPs.add(address.getAddress());
+          }
         }
+      }
+      System.out.println("Cluster node IPs: " + nodeIPs);
+    } catch (Exception e) {
+      System.out.println("Could not retrieve cluster IPs:");
+      e.printStackTrace();
     }
+  }
 }

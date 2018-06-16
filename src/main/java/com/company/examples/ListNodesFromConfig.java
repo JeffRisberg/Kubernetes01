@@ -30,7 +30,7 @@ public class ListNodesFromConfig {
         try {
             List<String> nodeIPs = new ArrayList<String>();
 
-            V1NodeList list = v1Api.listNode(PRETTY, "", "", "", 30, false);
+            V1NodeList list = v1Api.listNode("", "","", true, PRETTY, 200, "", 30, false);
             for (V1Node node : list.getItems()) {
                 List<V1NodeAddress> addresses = node.getStatus().getAddresses();
                 for (V1NodeAddress address : addresses) {
