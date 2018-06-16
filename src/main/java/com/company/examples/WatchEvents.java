@@ -51,7 +51,7 @@ public class WatchEvents {
       apie.printStackTrace();
       System.exit(1);
     }
-    com.company.examples.PVCWatch.printPVCs(list);
+    printPVCs(list);
 
     // parse watched events
     System.out.format("%n----- PVC Watch (max total claims: %s) -----", maxClaims.toSuffixedString());
