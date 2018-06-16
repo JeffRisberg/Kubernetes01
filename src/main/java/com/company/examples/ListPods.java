@@ -7,6 +7,7 @@ import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.CoreV1Api;
 import io.kubernetes.client.models.V1Pod;
 import io.kubernetes.client.models.V1PodList;
+import io.kubernetes.client.models.V1PodStatus;
 import io.kubernetes.client.util.Config;
 
 import java.io.IOException;
@@ -15,15 +16,23 @@ import java.io.IOException;
  * A simple example of how to use the Java API
  */
 public class ListPods {
-    public static void main(String[] args) throws IOException, ApiException {
-        ApiClient client = Config.defaultClient();
-        Configuration.setDefaultApiClient(client);
-
-        CoreV1Api api = new CoreV1Api();
-        V1PodList list =
-                api.listPodForAllNamespaces("", "", true, null, null, null, null, 10, false);
-        for (V1Pod pod : list.getItems()) {
-            System.out.println(pod.getMetadata().getName());
-        }
+  public static void main(String[] args) throws IOException, ApiException {
+    ApiClient client = Config.defaultClient();
+    Configuration.setDefaultApiClient(client);
+    String namespace = System.getenv("K8S_NAMESPACE");
+    if (namespace == null || "".equals(namespace)) {
+      namespace = "default";
     }
+
+    String podId = "nJ3pBWQBNkAQ8CAgBjRC";
+    CoreV1Api api = new CoreV1Api();
+    V1PodList list = api.listNamespacedPod(namespace, "", "", "uuid", false, podId, 10, "", 1, false);
+
+    for (V1Pod pod : list.getItems()) {
+      System.out.println(pod.getMetadata().getName());
+
+      V1PodStatus status = pod.getStatus();
+      System.out.println(status);
+    }
+  }
 }
