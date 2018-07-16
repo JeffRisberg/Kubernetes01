@@ -6,7 +6,6 @@ import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.CoreV1Api;
 import io.kubernetes.client.auth.ApiKeyAuth;
-import io.kubernetes.client.auth.Authentication;
 import io.kubernetes.client.auth.HttpBasicAuth;
 import io.kubernetes.client.models.*;
 import io.kubernetes.client.util.Config;
@@ -21,14 +20,9 @@ public class SimpleLaunchExample {
     ApiClient client = Config.fromConfig(configFile);
 
     ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication("BearerToken");
-    System.out.println(BearerToken.getApiKey());
 
     if (BearerToken.getApiKey() == null) {
-      Authentication auth = client.getAuthentications().get("gke_aisera-123_us-west1_test2");
-      System.out.println(auth);
-
-      System.out.println(((HttpBasicAuth) client.getAuthentications().get("BasicAuth")).getUsername());
-      System.out.println(((HttpBasicAuth) client.getAuthentications().get("BasicAuth")).getPassword());
+      System.out.println("Setting up AppKey");
 
       BearerToken.setApiKey(Credentials.basic(
         ((HttpBasicAuth) client.getAuthentications().get("BasicAuth")).getUsername(),
