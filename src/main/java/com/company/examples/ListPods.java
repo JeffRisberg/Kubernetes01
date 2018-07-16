@@ -19,20 +19,14 @@ public class ListPods {
   public static void main(String[] args) throws IOException, ApiException {
     ApiClient client = Config.defaultClient();
     Configuration.setDefaultApiClient(client);
-    String namespace = System.getenv("K8S_NAMESPACE");
-    if (namespace == null || "".equals(namespace)) {
-      namespace = "default";
-    }
 
-    String podId = "nJ3pBWQBNkAQ8CAgBjRC";
     CoreV1Api api = new CoreV1Api();
-    V1PodList list = api.listNamespacedPod(namespace, "", "", "uuid", false, podId, 10, "", 1, false);
-
+    V1PodList list =
+      api.listPodForAllNamespaces(null, null, null, null, null, null, null, 10, false);
     for (V1Pod pod : list.getItems()) {
       System.out.println(pod.getMetadata().getName());
-
       V1PodStatus status = pod.getStatus();
-      System.out.println(status);
+      System.out.println("   " + status.getPhase());
     }
   }
 }
