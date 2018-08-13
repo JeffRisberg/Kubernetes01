@@ -3,11 +3,14 @@ package com.company.examples;
 import com.company.ResourceLocator;
 import com.company.orchestration.DeployableObject;
 import com.company.orchestration.DeploymentType;
+import com.squareup.okhttp.Credentials;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.BatchV1Api;
 import io.kubernetes.client.apis.CoreV1Api;
+import io.kubernetes.client.auth.ApiKeyAuth;
+import io.kubernetes.client.auth.HttpBasicAuth;
 import io.kubernetes.client.models.*;
 import io.kubernetes.client.util.Config;
 
@@ -140,7 +143,19 @@ public class LaunchExample {
 
   public static void main(String[] args) throws IOException, ApiException {
 
-    ApiClient client = Config.defaultClient();
+    String configFile = "/Users/jeff/.kube/config";
+    ApiClient client = Config.fromConfig(configFile);
+
+    ApiKeyAuth BearerToken = (ApiKeyAuth) client.getAuthentication("BearerToken");
+
+    if (BearerToken.getApiKey() == null) {
+      System.out.println("Setting up AppKey");
+
+      BearerToken.setApiKey(Credentials.basic(
+        ((HttpBasicAuth) client.getAuthentications().get("BasicAuth")).getUsername(),
+        ((HttpBasicAuth) client.getAuthentications().get("BasicAuth")).getPassword()));
+    }
+    client.setDebugging(true);
     Configuration.setDefaultApiClient(client);
 
     try {
