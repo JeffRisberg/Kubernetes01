@@ -9,6 +9,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <lombokVersion>1.16.18</lombokVersion>
+    <kubernetesClientVersion>3.0.0</kubernetesClientVersion>
   </properties>
 
   <dependencies>
@@ -20,13 +22,12 @@
     <dependency>
       <groupId>io.kubernetes</groupId>
       <artifactId>client-java</artifactId>
-      <version>3.0.0</version>
+      <version>${kubernetesClientVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.16.20</version>
-      <scope>provided</scope>
+      <version>${lombokVersion}</version>
     </dependency>
     <dependency>
       <groupId>io.fabric8</groupId>
