@@ -22,6 +22,8 @@ import java.util.Random;
 
 public class LaunchExample {
 
+  public static String DRYRUN = "false";
+
   public static String AISERA_INPUT_CONFIG = "aisera_config";
   public static String AISERA_CONNECTOR_CONFIG = "aisera_connector_config";
   public static String AISERA_TRAINING_INPUT_CONFIG = "aisera_training_input_config";
@@ -173,7 +175,7 @@ public class LaunchExample {
 
       V1Job job = launchExample.createJob(deployableObject);
 
-      batchV1Api.createNamespacedJob(deployableObject.getNamespace(), job, pretty);
+      batchV1Api.createNamespacedJob(deployableObject.getNamespace(), job, false, pretty, DRYRUN);
 
     } catch (Exception e) {
       e.printStackTrace();

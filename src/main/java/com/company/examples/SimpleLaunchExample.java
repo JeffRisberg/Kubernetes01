@@ -14,6 +14,8 @@ import java.io.IOException;
 
 public class SimpleLaunchExample {
   private static final String PRETTY = "true";
+  private static final Boolean includeUninitialized = true;
+  private static final String DRYRUN = "false";
 
   public static void main(String[] args) throws IOException, ApiException {
     String configFile = "/Users/jeff/.kube/config";
@@ -57,7 +59,7 @@ public class SimpleLaunchExample {
     pod.setSpec(podSpec);
 
     try {
-      V1Pod result = apiInstance.createNamespacedPod(namespace, pod, pretty);
+      V1Pod result = apiInstance.createNamespacedPod(namespace, pod, true, pretty, DRYRUN);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CoreV1Api#createNamespacedPod");
