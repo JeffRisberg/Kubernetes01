@@ -28,7 +28,7 @@ public class ListNodes {
     try {
       List<String> nodeIPs = new ArrayList<String>();
 
-      V1NodeList list = v1Api.listNode(false, "", "", "", "", 30, "", 30, false);
+      V1NodeList list = v1Api.listNode(false, PRETTY, "", "", "", 30, "", 30, false);
       for (V1Node node : list.getItems()) {
         List<V1NodeAddress> addresses = node.getStatus().getAddresses();
         for (V1NodeAddress address : addresses) {
