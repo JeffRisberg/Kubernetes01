@@ -22,7 +22,7 @@ public class ListPods {
 
     CoreV1Api api = new CoreV1Api();
     V1PodList list =
-      api.listPodForAllNamespaces(null, null, null, null, null, null, null, 10, false);
+      api.listPodForAllNamespaces(null, null, null, null, null, null, 10, false);
     for (V1Pod pod : list.getItems()) {
       System.out.println(pod.getMetadata().getName());
       V1PodStatus status = pod.getStatus();

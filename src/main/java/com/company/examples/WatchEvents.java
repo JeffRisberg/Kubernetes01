@@ -45,7 +45,7 @@ public class WatchEvents {
     CoreV1Api api = new CoreV1Api(client);
     V1PersistentVolumeClaimList list = null;
     try {
-      list = api.listNamespacedPersistentVolumeClaim(namespace, null, null, null, null, null, null, null, null, null);
+      list = api.listNamespacedPersistentVolumeClaim(namespace, null, null, null, null, null, null, null, null);
     } catch (ApiException apie) {
       System.err.println("Exception when calling CoreV1Api#listNamespacedPersistentVolumeClaim");
       apie.printStackTrace();
@@ -59,7 +59,7 @@ public class WatchEvents {
       Watch<V1PersistentVolumeClaim> watch = Watch.createWatch(
         client,
         api.listNamespacedPersistentVolumeClaimCall(
-          namespace, null, null, null, null, null, null, null, null, Boolean.TRUE, null, null),
+          namespace, null, null, null, null, null, null, null, Boolean.TRUE, null, null),
         new TypeToken<Watch.Response<V1PersistentVolumeClaim>>() {
         }.getType()
       );

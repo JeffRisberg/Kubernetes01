@@ -59,7 +59,7 @@ public class SimpleLaunchExample {
     pod.setSpec(podSpec);
 
     try {
-      V1Pod result = apiInstance.createNamespacedPod(namespace, pod, true, pretty, DRYRUN);
+      V1Pod result = apiInstance.createNamespacedPod(namespace, pod, pretty, DRYRUN, "");
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CoreV1Api#createNamespacedPod");

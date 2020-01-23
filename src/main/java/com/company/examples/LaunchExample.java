@@ -8,7 +8,6 @@ import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
 import io.kubernetes.client.apis.BatchV1Api;
-import io.kubernetes.client.apis.CoreV1Api;
 import io.kubernetes.client.auth.ApiKeyAuth;
 import io.kubernetes.client.auth.HttpBasicAuth;
 import io.kubernetes.client.models.*;
@@ -175,7 +174,7 @@ public class LaunchExample {
 
       V1Job job = launchExample.createJob(deployableObject);
 
-      batchV1Api.createNamespacedJob(deployableObject.getNamespace(), job, false, pretty, DRYRUN);
+      batchV1Api.createNamespacedJob(deployableObject.getNamespace(), job, pretty, DRYRUN, "");
 
     } catch (Exception e) {
       e.printStackTrace();
