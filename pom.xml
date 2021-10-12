@@ -10,7 +10,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <lombokVersion>1.16.18</lombokVersion>
-    <kubernetesClientVersion>6.0.1</kubernetesClientVersion>
+    <kubernetesClientVersion>11.0.1</kubernetesClientVersion>
   </properties>
 
   <dependencies>
